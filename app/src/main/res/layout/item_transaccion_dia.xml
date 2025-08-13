@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/iv_transaccion_icono"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:contentDescription="Icono de transacción"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:srcCompat="@drawable/ic_money" /> <!-- Placeholder, necesitarás iconos reales -->
+
+    <TextView
+        android:id="@+id/tv_transaccion_descripcion_principal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/iv_transaccion_icono"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_transaccion_monto"
+        tools:text="Ingreso por viaje al centro" />
+
+    <TextView
+        android:id="@+id/tv_transaccion_descripcion_secundaria"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="2dp"
+        android:textAppearance="?attr/textAppearanceListItemSecondary"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintStart_toEndOf="@id/iv_transaccion_icono"
+        app:layout_constraintTop_toBottomOf="@id/tv_transaccion_descripcion_principal"
+        app:layout_constraintEnd_toStartOf="@+id/tv_transaccion_monto"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:text="Categoría: Viajes" />
+
+    <TextView
+        android:id="@+id/tv_transaccion_monto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textAppearance="?attr/textAppearanceListItem"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_transaccion_descripcion_principal"
+        app:layout_constraintBottom_toBottomOf="@id/tv_transaccion_descripcion_secundaria"
+        tools:text="$150.000" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

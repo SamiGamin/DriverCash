@@ -1,0 +1,71 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+    <string-array name="theme_options">
+        <item>Automático</item>
+        <item>Claro</item>
+        <item>Oscuro</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>auto</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="language_options">
+        <item>Español</item>
+        <item>Inglés</item>
+    </string-array>
+    <string-array name="language_values">
+        <item>es</item>
+        <item>en</item>
+    </string-array>
+
+    <string-array name="time_format_options">
+        <item>24 horas</item>
+        <item>12 horas</item>
+    </string-array>
+    <string-array name="time_format_values">
+        <item>24</item>
+        <item>12</item>
+    </string-array>
+
+    <!-- Tipos de Combustible -->
+    <string-array name="fuel_type_options">
+        <item>Gasolina</item>
+        <item>Eléctrico</item>
+        <item>Híbrido</item>
+        <item>Gas</item>
+    </string-array>
+    <string-array name="distance_unit_options">
+        <item>Kilómetros (km)</item>
+        <item>Millas (mi)</item>
+    </string-array>
+
+    <string-array name="distance_unit_values">
+        <item>km</item>
+        <item>miles</item>
+    </string-array>
+    <string-array name="currency_options">
+        <item>Automático (según el sistema)</item>
+        <item>Pesos Colombianos (COP)</item>
+        <item>Pesos Colombianos (sin decimales)</item>
+        <item>Dólares Americanos (USD)</item>
+        <item>Euros (EUR)</item>
+    </string-array>
+    <string-array name="currency_values">
+        <item>auto</item>
+        <item>COP</item>
+        <item>COP_NO_DECIMALS</item>
+        <item>USD</item>
+        <item>EUR</item>
+    </string-array>
+</resources>

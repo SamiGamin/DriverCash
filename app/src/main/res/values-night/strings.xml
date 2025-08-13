@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="add_expense">agregar</string>
+    <string name="home">Inicio</string>
+    <string name="history">Historial</string>
+    <string name="settings">Ajustes</string>
+    <string name="not_available_short">N/A</string>
+</resources>

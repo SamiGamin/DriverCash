@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_identificador_semana"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Semana 32 (11 Ago - 17 Ago)"/>
+
+        <TextView
+            android:id="@+id/tv_ingresos_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingresos:"
+            android:layout_marginTop="12dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_identificador_semana"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_ingresos_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@android:color/holo_green_dark"
+            app:layout_constraintTop_toTopOf="@id/tv_ingresos_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ingresos_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_ingresos_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$750.000"/>
+
+        <TextView
+            android:id="@+id/tv_gastos_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gastos:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingresos_semana_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_gastos_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/md_theme_errorContainer_mediumContrast"
+            app:layout_constraintTop_toTopOf="@id/tv_gastos_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_gastos_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_gastos_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$150.000"/>
+
+        <TextView
+            android:id="@+id/tv_horas_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Horas:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_gastos_semana_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_horas_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toTopOf="@id/tv_horas_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_horas_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_horas_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="40.0 hrs"/>
+
+        <TextView
+            android:id="@+id/tv_km_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Kilómetros:"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_horas_semana_label" />
+
+        <TextView
+            android:id="@+id/tv_km_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_km_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_km_semana_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_km_semana_label"
+            tools:text="350.0 km" />
+
+        <!-- NUEVO: Ganancia por Hora -->
+        <TextView
+            android:id="@+id/tv_ganancia_hora_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ganancia/hr:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_km_semana_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_ganancia_hora_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toTopOf="@id/tv_ganancia_hora_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ganancia_hora_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_ganancia_hora_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$15.000/hr"/>
+
+        <!-- NUEVO: Ganancia por Kilómetro -->
+        <TextView
+            android:id="@+id/tv_ganancia_km_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ganancia/km:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_ganancia_hora_semana_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_ganancia_km_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toTopOf="@id/tv_ganancia_km_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ganancia_km_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_ganancia_km_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$1.714/km"/>
+
+        <View
+            android:id="@+id/divider_resumen_semana"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_ganancia_km_semana_label" />
+
+        <TextView
+            android:id="@+id/tv_neto_semana_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Neto Semanal:"
+            android:layout_marginTop="12dp"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/divider_resumen_semana"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_neto_semana_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/tv_neto_semana_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_neto_semana_label"
+            app:layout_constraintStart_toEndOf="@id/tv_neto_semana_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$600.000"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

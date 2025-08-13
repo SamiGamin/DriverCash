@@ -1,0 +1,72 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory app:title="@string/messages_header">
+
+        <!-- Tema -->
+        <ListPreference
+            app:key="pref_theme"
+            app:title="Tema de la aplicación"
+            app:summary="Selecciona tema"
+            app:entries="@array/theme_options"
+            app:entryValues="@array/theme_values"
+            app:defaultValue="auto" />
+        <!-- Idioma -->
+        <ListPreference
+            app:key="pref_language"
+            app:title="Idioma"
+            app:summary="Selecciona el idioma de la app"
+            app:entries="@array/language_options"
+            app:entryValues="@array/language_values"
+            app:defaultValue="es" />
+
+        <!-- Formato de hora -->
+        <ListPreference
+            app:key="pref_time_format"
+            app:title="Formato de hora"
+            app:summary="Elige 12h o 24h"
+            app:entries="@array/time_format_options"
+            app:entryValues="@array/time_format_values"
+            app:defaultValue="24" />
+
+        <!-- Formato de Moneda -->
+        <ListPreference
+            app:key="pref_currency_format"
+            app:title="Formato de moneda"
+            app:summary="Selecciona el formato para mostrar montos"
+            app:entries="@array/currency_options"
+            app:entryValues="@array/currency_values"
+            app:defaultValue="auto" />
+
+        <!-- Unidad de distancia -->
+        <ListPreference
+            app:key="pref_distance_unit"
+            app:title="Unidad de distancia"
+            app:summary="Selecciona km o millas"
+            app:entries="@array/distance_unit_options"
+            app:entryValues="@array/distance_unit_values"
+            app:defaultValue="km" />
+
+        <!-- Sección vehículo -->
+        <Preference
+            app:key="pref_vehicle"
+            app:title="Configurar vehículo"
+            app:summary="Editar datos del vehículo" />
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="@string/sync_header">
+
+        <SwitchPreferenceCompat
+            app:key="sync"
+            app:title="@string/sync_title" />
+
+        <SwitchPreferenceCompat
+            app:dependency="sync"
+            app:key="attachment"
+            app:summaryOff="@string/attachment_summary_off"
+            app:summaryOn="@string/attachment_summary_on"
+            app:title="@string/attachment_title" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

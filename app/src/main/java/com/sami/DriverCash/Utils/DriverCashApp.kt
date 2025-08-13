@@ -1,0 +1,8 @@
+package com.sami.DriverCash.Utils
+
+import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
+
+@HiltAndroidApp
+class DriverCashApp: Application() {
+}

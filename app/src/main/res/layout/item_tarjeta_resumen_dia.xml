@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="4dp"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tv_fecha_resumen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Jueves, 15 de Agosto" />
+
+        <TextView
+            android:id="@+id/tv_ingresos_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Ingresos:"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_fecha_resumen" />
+
+        <TextView
+            android:id="@+id/tv_ingresos_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@android:color/holo_green_dark"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ingresos_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_ingresos_dia_label"
+            app:layout_constraintTop_toTopOf="@id/tv_ingresos_dia_label"
+            tools:text="$150.000" />
+
+        <TextView
+            android:id="@+id/tv_gastos_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Gastos:"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ingresos_dia_label" />
+
+        <TextView
+            android:id="@+id/tv_gastos_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            android:textColor="@color/md_theme_errorContainer_mediumContrast"
+            app:layout_constraintBottom_toBottomOf="@id/tv_gastos_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_gastos_dia_label"
+            app:layout_constraintTop_toTopOf="@id/tv_gastos_dia_label"
+            tools:text="$30.000" />
+
+        <TextView
+            android:id="@+id/tv_horas_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Horas:"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gastos_dia_label" />
+
+        <TextView
+            android:id="@+id/tv_horas_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@id/tv_horas_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_horas_dia_label"
+            app:layout_constraintTop_toTopOf="@id/tv_horas_dia_label"
+            tools:text="8.5 hrs" />
+
+        <!-- NUEVO: Kilómetros -->
+        <TextView
+            android:id="@+id/tv_km_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Kilómetros:"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_horas_dia_label" />
+
+        <TextView
+            android:id="@+id/tv_km_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_km_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_km_dia_label"
+            app:layout_constraintTop_toTopOf="@+id/tv_km_dia_label"
+            tools:text="75.0 km" />
+
+        <!-- NUEVO: Ganancia por Hora -->
+        <TextView
+            android:id="@+id/tv_ganancia_hora_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ganancia/hr:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_km_dia_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_ganancia_hora_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toTopOf="@id/tv_ganancia_hora_dia_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ganancia_hora_dia_label"
+            app:layout_constraintStart_toEndOf="@id/tv_ganancia_hora_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$14.117/hr"/>
+
+        <!-- NUEVO: Ganancia por Kilómetro -->
+        <TextView
+            android:id="@+id/tv_ganancia_km_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ganancia/km:"
+            android:layout_marginTop="8dp"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toBottomOf="@id/tv_ganancia_hora_dia_label"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_ganancia_km_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceBody1"
+            app:layout_constraintTop_toTopOf="@id/tv_ganancia_km_dia_label"
+            app:layout_constraintBottom_toBottomOf="@id/tv_ganancia_km_dia_label"
+            app:layout_constraintStart_toEndOf="@id/tv_ganancia_km_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            tools:text="$1.600/km"/>
+
+        <View
+            android:id="@+id/divider_resumen_dia"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="?android:attr/listDivider"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_ganancia_km_dia_label" />
+
+        <TextView
+            android:id="@+id/tv_neto_dia_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Neto del Día:"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_resumen_dia" />
+
+        <TextView
+            android:id="@+id/tv_neto_dia_valor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="end"
+            android:textAppearance="?attr/textAppearanceSubtitle1"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tv_neto_dia_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_neto_dia_label"
+            app:layout_constraintTop_toTopOf="@id/tv_neto_dia_label"
+            tools:text="$120.000" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>
