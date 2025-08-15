@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -56,6 +57,11 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.firebase.auth)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.googleid)
+    implementation(libs.firebase.database)
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     testImplementation(libs.junit)
@@ -64,5 +70,5 @@ dependencies {
     implementation("com.github.ismaeldivita:chip-navigation-bar:1.4.0")
     implementation("com.google.dagger:hilt-android:2.57")
     kapt("com.google.dagger:hilt-compiler:2.57")
-
+    implementation(libs.play.services.auth)
 }

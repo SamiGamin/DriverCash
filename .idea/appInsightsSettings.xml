@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sami.DriverCash" />
+                  <option name="mobileSdkAppId" value="1:640815888804:android:aad88cb4ab77a618b82931" />
+                  <option name="projectId" value="mis-ahorros-37a68" />
+                  <option name="projectNumber" value="640815888804" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

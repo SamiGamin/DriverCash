@@ -10,10 +10,14 @@ import com.sami.DriverCash.Model.Local.AppDatabase
 import com.sami.DriverCash.Model.Local.Ingreso
 import com.sami.DriverCash.Model.Local.Repository.IngresoRepository
 import com.sami.DriverCash.Model.Local.VehicleDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext // Asegúrate de que este import esté si lo usas directamente aquí, aunque es mejor en el Repositorio
+import javax.inject.Inject
 
-class IngresoViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class IngresoViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     private val repository: IngresoRepository
     private val vehicleDao: VehicleDao
@@ -31,13 +35,11 @@ class IngresoViewModel(application: Application) : AndroidViewModel(application)
         allIngresos = repository.getAllIngresos()
         ultimoIngreso = repository.getUltimoIngreso()
 
-        // NUEVO: Calcular el total histórico de ingresos para el vehículo predeterminado (Alternativa con MediatorLiveData)
         val liveDataVehiculoIngresos = vehicleDao.getVehiculoPredeterminado()
         totalIngresosHistoricos = MediatorLiveData<Double?>().apply {
             var currentSource: LiveData<Double?>? = null
 
             addSource(liveDataVehiculoIngresos) { vehiculo ->
-                // Si ya hay una fuente observada del repositorio, la removemos
                 currentSource?.let {
                     removeSource(it)
                     currentSource = null
@@ -50,7 +52,7 @@ class IngresoViewModel(application: Application) : AndroidViewModel(application)
                         value = total
                     }
                 } else {
-                    value = null // O puedes poner 0.0 si prefieres
+                    value = null
                 }
             }
         }
@@ -70,6 +72,14 @@ class IngresoViewModel(application: Application) : AndroidViewModel(application)
 
     fun getIngresosByVehiculoId(vehiculoId: Long): LiveData<List<Ingreso>> {
         return repository.getIngresosByVehiculoId(vehiculoId)
+    }
+
+    // Función suspendida para obtener la lista directamente desde el repositorio
+    suspend fun getIngresosByVehiculoIdSuspend(vehiculoId: Long): List<Ingreso> {
+        // DEBERÁS ASEGURARTE de que tu IngresoRepository tenga una función suspendida como esta:
+        // suspend fun getIngresosListByVehiculoId(vehiculoId: Long): List<Ingreso>
+        // Esta función en el repositorio debería obtener los datos del DAO (también con suspend o withContext).
+        return repository.getIngresosListByVehiculoId(vehiculoId) 
     }
 
     fun getTotalIngresosByVehiculoId(vehiculoId: Long): LiveData<Double?> {

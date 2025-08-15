@@ -21,5 +21,6 @@ data class Ingreso(
     val vehiculoId: Long,          // ID del vehículo asociado
     val fecha: Long,               // Timestamp (milisegundos desde epoch)
     val monto: Double,
-    val descripcion: String? = null // Opcional
+    val descripcion: String? = null, // Opcional
+    var categoria: String = "General"
 )

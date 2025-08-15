@@ -19,4 +19,9 @@
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="not_available_short">N/A</string>
+    <string name="copiaDeSeguridad">Parece que no has iniciado sesión. Regístrate o inicia sesión para crear una copia de seguridad automática en la nube y acceder a tu información desde cualquier dispositivo.</string>
+    <string name="restore_backup_title">Restaurar Copia de Seguridad</string>
+    <string name="restore_backup_message">Se encontró una copia de seguridad en la nube con tus datos. ¿Deseas restaurarlos ahora?</string>
+    <string name="restore_yes">Sí, Restaurar</string>
+    <string name="restore_no_start_new">No, Empezar de Nuevo</string>
 </resources>

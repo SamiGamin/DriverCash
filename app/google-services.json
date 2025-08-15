@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "640815888804",
+    "firebase_url": "https://mis-ahorros-37a68-default-rtdb.firebaseio.com",
+    "project_id": "mis-ahorros-37a68",
+    "storage_bucket": "mis-ahorros-37a68.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640815888804:android:cd5bf246e85cfaf3b82931",
+        "android_client_info": {
+          "package_name": "com.miEjemplo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640815888804-5cgccum222oqn3o9hp33sfcbrps5tpu3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miEjemplo",
+            "certificate_hash": "f604e3f48a73e9ee6f02884417cc35a9f4586a4c"
+          }
+        },
+        {
+          "client_id": "640815888804-gsd251ma7du2aasi87kfe6c7jhou7qil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miEjemplo",
+            "certificate_hash": "bc6be4992d1748a0d5eb8f243de3cf165fc0badc"
+          }
+        },
+        {
+          "client_id": "640815888804-ts0nrccd9p5moeo7ej0piq13bipqa2jq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.miEjemplo",
+            "certificate_hash": "ff95a70359d701cd2c7c2d7417eb87e8c0d090ce"
+          }
+        },
+        {
+          "client_id": "640815888804-33asj8su79c8geaj8kh1h17481spbccl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyKkUki8UI9E8hBB6AjCHl_HRIRXDhDew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640815888804-33asj8su79c8geaj8kh1h17481spbccl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:640815888804:android:aad88cb4ab77a618b82931",
+        "android_client_info": {
+          "package_name": "com.sami.DriverCash"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "640815888804-33asj8su79c8geaj8kh1h17481spbccl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyKkUki8UI9E8hBB6AjCHl_HRIRXDhDew"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "640815888804-33asj8su79c8geaj8kh1h17481spbccl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

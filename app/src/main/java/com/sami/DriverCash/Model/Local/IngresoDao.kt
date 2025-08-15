@@ -13,6 +13,8 @@ interface IngresoDao {
 
     @Delete
     suspend fun delete(ingreso: Ingreso)
+    @Query("DELETE FROM ingresos") // "ingresos" es el nombre de tu tabla de Ingreso
+    suspend fun deleteAll() // O un nombre como deleteAllIngresos() si prefieres
 
     @Query("SELECT * FROM ingresos WHERE id = :ingresoId LIMIT 1")
     fun getIngresoById(ingresoId: Long): LiveData<Ingreso?>
@@ -23,6 +25,10 @@ interface IngresoDao {
     @Query("SELECT * FROM ingresos WHERE vehiculoId = :vehiculoId ORDER BY fecha DESC")
     fun getIngresosByVehiculoId(vehiculoId: Long): LiveData<List<Ingreso>>
 
+    // Nueva función suspendida para obtener la lista de ingresos por ID de vehículo para el backup
+    @Query("SELECT * FROM ingresos WHERE vehiculoId = :vehiculoId ORDER BY fecha DESC")
+    suspend fun getIngresosListForVehiculo(vehiculoId: Long): List<Ingreso>
+
     @Query("SELECT SUM(monto) FROM ingresos WHERE vehiculoId = :vehiculoId")
     fun getTotalIngresosByVehiculoId(vehiculoId: Long): LiveData<Double?>
 
@@ -32,7 +38,7 @@ interface IngresoDao {
 
     @Query("SELECT SUM(monto) FROM ingresos WHERE vehiculoId = :vehiculoId AND fecha BETWEEN :fechaInicio AND :fechaFin")
     suspend fun getSumaIngresosEntreFechas(vehiculoId: Long, fechaInicio: Long, fechaFin: Long): Double?
-    // CORRECCIÓN AQUÍ: Cambiado "tabla_ingresos" a "ingresos"
+    
     @Query("SELECT * FROM ingresos WHERE vehiculoId = :vehiculoId AND fecha BETWEEN :fechaInicio AND :fechaFin ORDER BY fecha ASC")
     suspend fun getIngresosEntreFechasParaVehiculo(vehiculoId: Long, fechaInicio: Long, fechaFin: Long): List<Ingreso>
 

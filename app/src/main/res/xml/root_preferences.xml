@@ -69,4 +69,13 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory app:title="Cuenta">
+
+        <Preference
+            app:key="pref_sign_out"
+            app:title="Cerrar Sesión"
+            app:summary="Finalizar la sesión actual"/>
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

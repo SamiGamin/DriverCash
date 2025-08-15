@@ -5,4 +5,8 @@
     <string name="history">Historial</string>
     <string name="settings">Ajustes</string>
     <string name="not_available_short">N/A</string>
+    <string name="restore_backup_title">Restaurar Copia de Seguridad</string>
+    <string name="restore_backup_message">Se encontró una copia de seguridad en la nube con tus datos. ¿Deseas restaurarlos ahora?</string>
+    <string name="restore_yes">Sí, Restaurar</string>
+    <string name="restore_no_start_new">No, Empezar de Nuevo</string>
 </resources>

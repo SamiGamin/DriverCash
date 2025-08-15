@@ -1,5 +1,6 @@
 package com.sami.DriverCash.Ui.Preferences
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
@@ -8,20 +9,30 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.sami.DriverCash.Auth.AuthManager
+import com.sami.DriverCash.MainActivity
 import com.sami.DriverCash.R
 import com.sami.DriverCash.ViewModel.VehicleViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private val vehicleViewModel: VehicleViewModel by activityViewModels()
     private var vehiclePreference: Preference? = null
     private var themePreference: ListPreference? = null
+    private var signOutPreference: Preference? = null
+
+    @Inject
+    lateinit var authManager: AuthManager
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.root_preferences, rootKey)
 
         vehiclePreference = findPreference("pref_vehicle")
         themePreference = findPreference("pref_theme")
+        signOutPreference = findPreference("pref_sign_out")
 
         setupThemePreferenceListener()
     }
@@ -34,6 +45,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             true
         }
 
+        setupSignOutPreference()
         observeVehiculoPredeterminado()
     }
 
@@ -42,6 +54,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val themeValue = newValue as String
             applyTheme(themeValue)
             true // Importante para que el valor de la preferencia se guarde
+        }
+    }
+
+    private fun setupSignOutPreference() {
+        signOutPreference?.isVisible = authManager.currentUser != null
+        signOutPreference?.setOnPreferenceClickListener {
+            authManager.signOut {
+                // Esta lambda se llama cuando Google Sign-Out también se completa
+                // Reiniciar MainActivity para limpiar el estado y forzar la verificación de autenticación
+                activity?.let { currentActivity ->
+                    val intent = Intent(currentActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                    currentActivity.finish()
+                }
+            }
+            true
         }
     }
 

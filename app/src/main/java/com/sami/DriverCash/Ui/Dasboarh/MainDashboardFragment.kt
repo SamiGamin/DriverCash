@@ -1,16 +1,25 @@
 package com.sami.DriverCash.Ui.Dasboarh
 
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible // Importante para la visibilidad del CardView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.sami.DriverCash.Auth.AuthManager
+import com.sami.DriverCash.Auth.LoginDialogFragment
 import com.sami.DriverCash.Model.Local.Gasto
 import com.sami.DriverCash.Model.Local.HorasTrabajadas
 import com.sami.DriverCash.Model.Local.Ingreso
@@ -27,9 +36,12 @@ import com.sami.DriverCash.ViewModel.KilometrajeRecorridoViewModel
 import com.sami.DriverCash.ViewModel.VehicleViewModel
 import com.sami.DriverCash.databinding.FragmentMainDashboardBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainDashboardFragment : Fragment() {
@@ -48,6 +60,9 @@ class MainDashboardFragment : Fragment() {
     private val horasTrabajadasViewModel: HorasTrabajadasViewModel by viewModels()
     private val kilometrajeViewModel: KilometrajeRecorridoViewModel by viewModels()
 
+    @Inject
+    lateinit var authManager: AuthManager
+
     private val dateFormatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onCreateView(
@@ -60,18 +75,83 @@ class MainDashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.cardViewTotalesHistoricos.isVisible = false 
+        binding.cardViewTotalesHistoricos.isVisible = false
         setupRecyclerView()
         setupDashboardItems()
         observeViewModels()
-        observeVehicleViewModel() // Asegúrate de que esta línea esté presente
+        observeVehicleViewModel()
+        setupBackupPromptCard()
+        observeAuthStateAndSync()
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val network = connectivityManager.activeNetwork ?: return false
+            val activeNetwork = connectivityManager.getNetworkCapabilities(network) ?: return false
+            return when {
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            val networkInfo = connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
+        }
+    }
+
+    private fun setupBackupPromptCard() {
+        binding.cardViewBackupPrompt.setOnClickListener {
+            LoginDialogFragment().show(childFragmentManager, LoginDialogFragment.TAG)
+        }
+    }
+
+    private fun observeAuthStateAndSync() {
+        // Usa viewLifecycleOwner.lifecycleScope y repeatOnLifecycle para manejar el ciclo de vida
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                authManager.getAuthStateFlow().collectLatest { firebaseUser ->
+                    // El código dentro de collectLatest solo se ejecutará cuando la vista esté al menos en estado STARTED
+                    // y se cancelará automáticamente cuando esté en STOPPED.
+                    // Por lo tanto, el acceso a binding aquí es seguro.
+                    val isLoggedIn = firebaseUser != null
+                    binding.cardViewBackupPrompt.isVisible = !isLoggedIn
+                    if (isLoggedIn) {
+                        Log.d(TAG_DASHBOARD, "Usuario ha iniciado sesión: ${firebaseUser?.displayName}")
+                        if (isNetworkAvailable()) {
+                            Log.d(TAG_DASHBOARD, "Conexión disponible, sincronización automática DESACTIVADA TEMPORALMENTE PARA PRUEBAS.")
+                            // Considera mostrar un indicador de carga aquí si la sincronización puede tardar
+                            // binding.progressBarSync.isVisible = true // Ejemplo
+                            // val backupResult = authManager.performFullUserBackup(firebaseUser!!)
+                            // // binding.progressBarSync.isVisible = false // Ocultar después de la operación
+                            // backupResult.fold(
+                            //     onSuccess = {
+                            //         Log.d(TAG_DASHBOARD, "Sincronización automática completada.")
+                            //         // Toast.makeText(context, getString(R.string.sync_successful), Toast.LENGTH_SHORT).show()
+                            //     },
+                            //     onFailure = { exception ->
+                            //         Log.e(TAG_DASHBOARD, "Error en sincronización automática.", exception)
+                            //         // Toast.makeText(context, getString(R.string.sync_failed), Toast.LENGTH_LONG).show()
+                            //     }
+                            // )
+                        } else {
+                            Log.d(TAG_DASHBOARD, "No hay conexión de red para sincronización automática.")
+                        }
+                    } else {
+                        Log.d(TAG_DASHBOARD, "Usuario no ha iniciado sesión. No se requiere sincronización automática.")
+                    }
+                }
+            }
+        }
     }
 
     private fun observeVehicleViewModel() {
         vehicleViewModel.vehiculoPredeterminado.observe(viewLifecycleOwner) { vehiculo ->
             if (vehiculo != null) {
                 binding.tvTituloTotalesHistoricos.text = "Resumen Histórico (${vehiculo.modelo} ${vehiculo.placa})"
-                // Podrías añadir más lógica aquí si el título del CardView depende del vehículo
             } else {
                 binding.tvTituloTotalesHistoricos.text = "Sin vehículo predeterminado"
             }
@@ -154,14 +234,14 @@ class MainDashboardFragment : Fragment() {
             Log.d(TAG_DASHBOARD, "Total Ingresos Históricos observado: $totalIngresos")
             val ingresosStr = totalIngresos?.let { CurrencyUtils.formatCurrency(requireContext(), it) } ?: getText(R.string.not_available_short)
             binding.tvIngresosHistoricosValor.text = ingresosStr
-            actualizarBalanceHistorico() 
+            actualizarBalanceHistorico()
             actualizarVisibilidadCardViewTotales()
         }
         gastoViewModel.totalGastosHistoricos.observe(viewLifecycleOwner) { totalGastos ->
             Log.d(TAG_DASHBOARD, "Total Gastos Históricos observado: $totalGastos")
             val gastosStr = totalGastos?.let { CurrencyUtils.formatCurrency(requireContext(), it) } ?: getText(R.string.not_available_short)
             binding.tvGastosHistoricosValor.text = gastosStr
-            actualizarBalanceHistorico() 
+            actualizarBalanceHistorico()
             actualizarVisibilidadCardViewTotales()
         }
     }
@@ -172,16 +252,16 @@ class MainDashboardFragment : Fragment() {
         val balance = totalIngresos - totalGastos
 
         val balanceStr = CurrencyUtils.formatCurrency(requireContext(), balance)
-        binding.tvNetoHistoricoValor.text = balanceStr 
+        binding.tvNetoHistoricoValor.text = balanceStr
         Log.d(TAG_DASHBOARD, "Balance histórico actualizado: $balanceStr")
     }
-    
+
     private fun actualizarVisibilidadCardViewTotales() {
         val ingresosCargados = ingresoViewModel.totalIngresosHistoricos.value != null
         val gastosCargados = gastoViewModel.totalGastosHistoricos.value != null
-        val mostrarCardView = (ingresosCargados && (ingresoViewModel.totalIngresosHistoricos.value != null)) || 
-                              (gastosCargados && (gastoViewModel.totalGastosHistoricos.value != null)) ||
-                              (ingresoViewModel.totalIngresosHistoricos.value == 0.0 && gastoViewModel.totalGastosHistoricos.value == 0.0)
+        val mostrarCardView = (ingresosCargados && (ingresoViewModel.totalIngresosHistoricos.value != null)) ||
+                (gastosCargados && (gastoViewModel.totalGastosHistoricos.value != null)) ||
+                (ingresoViewModel.totalIngresosHistoricos.value == 0.0 && gastoViewModel.totalGastosHistoricos.value == 0.0)
 
         Log.d(TAG_DASHBOARD, "actualizarVisibilidadCardViewTotales: ingresosCargados=$ingresosCargados, gastosCargados=$gastosCargados, mostrar=$mostrarCardView")
         binding.cardViewTotalesHistoricos.isVisible = mostrarCardView
@@ -223,7 +303,7 @@ class MainDashboardFragment : Fragment() {
 
     private fun formatHorasTrabajadasSummary(horas: HorasTrabajadas?): String {
         return horas?.let {
-            val horasFormateadas = CurrencyUtils.formatDecimalHoursToHHMM(it.horas) // Modificado
+            val horasFormateadas = CurrencyUtils.formatDecimalHoursToHHMM(it.horas)
             "Últimas: $horasFormateadas hrs el ${formatDate(it.fecha)}"
         } ?: "Sin horas recientes"
     }
@@ -234,7 +314,7 @@ class MainDashboardFragment : Fragment() {
             val distanceUnit = sharedPreferences.getString("pref_distance_unit", "km") ?: "km"
             val unitLabel = if (distanceUnit == "miles") "mi" else "km"
             val kmFormateados = if (it.kilometros % 1 == 0.0) String.format(Locale.US, "%.0f", it.kilometros)
-                                else String.format(Locale.US, "%.2f", it.kilometros)
+            else String.format(Locale.US, "%.2f", it.kilometros)
             "Último: $kmFormateados $unitLabel el ${formatDate(it.fecha)}"
         } ?: "Sin kilometraje reciente"
     }

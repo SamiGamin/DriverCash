@@ -11,10 +11,14 @@ import com.sami.DriverCash.Model.Local.Gasto
 import com.sami.DriverCash.Model.Local.TipoGasto
 import com.sami.DriverCash.Model.Local.Repository.GastoRepository
 import com.sami.DriverCash.Model.Local.VehicleDao
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext // Asegúrate de que este import esté si lo usas directamente aquí, aunque es mejor en el Repositorio
+import javax.inject.Inject
 
-class GastoViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class GastoViewModel @Inject constructor(application: Application) : AndroidViewModel(application) {
 
     private val repository: GastoRepository
     private val vehicleDao: VehicleDao
@@ -32,13 +36,11 @@ class GastoViewModel(application: Application) : AndroidViewModel(application) {
         allGastos = repository.getAllGastos()
         ultimoGasto = repository.getUltimoGasto()
 
-        // NUEVO: Calcular el total histórico de gastos para el vehículo predeterminado (Alternativa con MediatorLiveData)
         val liveDataVehiculoGastos = vehicleDao.getVehiculoPredeterminado()
         totalGastosHistoricos = MediatorLiveData<Double?>().apply {
             var currentSource: LiveData<Double?>? = null
 
             addSource(liveDataVehiculoGastos) { vehiculo ->
-                // Si ya hay una fuente observada del repositorio, la removemos
                 currentSource?.let {
                     removeSource(it)
                     currentSource = null
@@ -51,7 +53,7 @@ class GastoViewModel(application: Application) : AndroidViewModel(application) {
                         value = total
                     }
                 } else {
-                    value = null // O puedes poner 0.0 si prefieres
+                    value = null
                 }
             }
         }
@@ -70,7 +72,15 @@ class GastoViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getGastosByVehiculoId(vehiculoId: Long): LiveData<List<Gasto>> {
-        return repository.getGastosByVehiculoId(vehiculoId)
+        return repository.getGastosByVehiculoId(vehiculoId) // CORREGIDO AQUÍ
+    }
+
+    // Función suspendida para obtener la lista directamente desde el repositorio
+    suspend fun getGastosByVehiculoIdSuspend(vehiculoId: Long): List<Gasto> {
+        // DEBERÁS ASEGURARTE de que tu GastoRepository tenga una función suspendida como esta:
+        // suspend fun getGastosListByVehiculoId(vehiculoId: Long): List<Gasto>
+        // Esta función en el repositorio debería obtener los datos del DAO (también con suspend o withContext).
+        return repository.getGastosListByVehiculoId(vehiculoId)
     }
 
     fun getGastosByVehiculoIdAndCategoria(vehiculoId: Long, categoria: TipoGasto): LiveData<List<Gasto>> {

@@ -22,6 +22,9 @@ class VehicleRepository @Inject constructor(private val vehicleDao: VehicleDao) 
     suspend fun delete(vehicle: Vehicle) {
         vehicleDao.delete(vehicle)
     }
+    suspend fun deleteAllVehicles() { // El nombre debe coincidir con lo que llamas en AuthManager
+        vehicleDao.deleteAll() // Llama al método que definiste en el DAO
+    }
 
     suspend fun getVehicleById(id: Long): Vehicle? { // Nueva función para obtener por ID
         return vehicleDao.getById(id)

@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Ui.Dasboarh.MainDashboardFragment">
-    <!-- CardView para Totales Históricos -->
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardViewTotalesHistoricos"
+        android:id="@+id/cardViewBackupPrompt"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -16,9 +16,52 @@
         android:visibility="gone"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvBackupPromptTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¡Protege tus datos!"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                android:textColor="?attr/colorError" /> <!-- Color para enfatizar -->
+
+            <TextView
+                android:id="@+id/tvBackupPromptMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/copiaDeSeguridad"
+                android:textAppearance="?attr/textAppearanceBody2" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView para Totales Históricos -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewTotalesHistoricos"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewBackupPrompt"
         tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -114,7 +157,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

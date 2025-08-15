@@ -20,15 +20,27 @@ import androidx.room.PrimaryKey
  * @property tipoCombustible El tipo de combustible que utiliza el vehículo (por ejemplo, Gasolina, Diésel, Eléctrico).
  * @property esPredeterminado Indica si este vehículo es el predeterminado para la aplicación.
  */
+
+
+// Define este enum si aún no lo has hecho, puede estar en su propio archivo
+// o dentro de Vehicle.kt si solo se usa aquí.
+enum class TipoCombustible {
+    GASOLINA, DIESEL, ELECTRICO, GAS, HIBRIDO, OTRO
+}
+
 @Entity(tableName = "vehicles")
 data class Vehicle(
-    @PrimaryKey(autoGenerate = true) val id: Long = 0,
-    val placa: String,
-    val marca: String,
-    val modelo: String,
-    val anio: Int,
-    val color: String,
-    val tipoCombustible: String,
-    @ColumnInfo(defaultValue = "0") // SQLite no tiene un booleano real, 0 para false, 1 para true
-    val esPredeterminado: Boolean = false
+    @PrimaryKey(autoGenerate = true)
+    val id: Long = 0,
+    var marca: String,
+    var modelo: String,
+    var anio: Int,
+    var color: String,
+    var placa: String,
+    var esPredeterminado: Boolean = false,
+    var apodo: String = "", // AÑADIR ESTA LÍNEA si no existe
+    var numeroEconomico: String = "", // AÑADIR ESTA LÍNEA si no existe
+    var tipoCombustible: TipoCombustible? = null,// AÑADIR o AJUSTAR ESTA LÍNEA
+    var odometro: Int = 0
 )
+

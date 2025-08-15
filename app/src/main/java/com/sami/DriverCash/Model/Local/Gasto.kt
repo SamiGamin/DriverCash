@@ -23,5 +23,6 @@ data class Gasto(
     val fecha: Long,               // Timestamp
     val monto: Double,
     val categoria: TipoGasto,      // Usará un TypeConverter para guardarse como String
-    val descripcion: String? = null // Opcional
+    val descripcion: String? = null, // Puede ser nullable
+    var pathFoto: String? = null // Opcional
 )

@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.sami.DriverCash.Model.Local.Vehicle
 import com.sami.DriverCash.databinding.ItemVehiculoRegistradoBinding
+// Importa tu enum si aún no está importado globalmente o por el modelo Vehicle
+// import com.sami.DriverCash.Model.Local.TipoCombustible 
 
 class VehiculoRegistradoAdapter(
     private val onItemClicked: (Vehicle) -> Unit,
@@ -36,7 +38,9 @@ class VehiculoRegistradoAdapter(
             binding.tvPlacaVehiculo.text = vehicle.placa
             binding.tvMarcaModeloVehiculo.text = "${vehicle.marca} ${vehicle.modelo}"
             binding.tvAnioColorVehiculo.text = "${vehicle.anio} - ${vehicle.color}"
-            binding.tvTipoCombustibleVehiculo.text = vehicle.tipoCombustible
+            // Convertir el enum TipoCombustible a String para mostrarlo.
+            // Si es null, muestra "No especificado" o una cadena vacía.
+            binding.tvTipoCombustibleVehiculo.text = vehicle.tipoCombustible?.name ?: "No especificado"
         }
     }
 

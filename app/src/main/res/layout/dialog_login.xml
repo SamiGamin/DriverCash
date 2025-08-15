@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tv_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iniciar Sesión"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"/> <!-- Reducido el margen inferior -->
+
+    <TextView
+        android:id="@+id/tv_dialog_subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Inicia sesión para guardar tus datos en la nube y \n sincronizarlos entre dispositivos."
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="16dp"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/btn_google_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        app:buttonSize="wide" />
+
+    <ProgressBar
+        android:id="@+id/pb_login_loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tv_login_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center_horizontal"
+        android:textColor="?attr/colorError"
+        android:visibility="gone" />
+
+</LinearLayout>

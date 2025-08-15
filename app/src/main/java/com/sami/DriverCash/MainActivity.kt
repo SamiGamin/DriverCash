@@ -1,5 +1,6 @@
 package com.sami.DriverCash
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -16,15 +17,20 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
+// import com.sami.DriverCash.Auth.AuthManager // Eliminado
 import com.sami.DriverCash.ViewModel.VehicleViewModel
 import com.sami.DriverCash.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+// import javax.inject.Inject // Eliminado si AuthManager era el único @Inject aquí
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private val vehicleViewModel: VehicleViewModel by viewModels()
+
+    // @Inject // Eliminado
+    // lateinit var authManager: AuthManager // Eliminado
 
     private fun applyUserSelectedTheme() {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
@@ -67,16 +73,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Sincronizar el ChipNavigationBar con el NavController
-        // Esto es útil si la navegación puede ocurrir desde otras fuentes además del ChipNavigationBar
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            // Actualiza el ítem seleccionado en ChipNavigationBar.
-            // El método exacto puede variar según la versión de la biblioteca,
-            // pero setItemSelected(id) o setItemSelected(id, true) es común.
-            // El segundo parámetro 'true' usualmente indica que el cambio es programático
-            // y no debería re-disparar el listener OnItemSelectedListener.
-            // Consulta la documentación de ChipNavigationBar si esto no funciona como se espera.
-            binding.bottomNav.setItemSelected(destination.id) // O binding.bottomNav.setItemSelected(destination.id, true)
-
+            binding.bottomNav.setItemSelected(destination.id)
             // supportActionBar?.title = destination.label // Ya estaba comentado
         }
     }
@@ -103,6 +101,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main_toolbar_menu, menu)
+        // val signOutItem = menu.findItem(R.id.action_sign_out) // Eliminado
+        // signOutItem?.isVisible = authManager.currentUser != null // Eliminado
         return true
     }
 
@@ -110,16 +110,24 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.action_preferences -> {
                 if (::navController.isInitialized) {
-                    // Evitar navegar a settings si ya estamos en settings o en una subpantalla de settings
                     if (navController.currentDestination?.id != R.id.nav_settings &&
-                        navController.currentDestination?.id != R.id.nav_mis_vehiculos_registrados && // Ejemplo si MisVehiculos es sub-settings
+                        navController.currentDestination?.id != R.id.nav_mis_vehiculos_registrados &&
                         navController.currentDestination?.id != R.id.nav_add_vehicle
-                    ) { // Ejemplo
+                    ) {
                         navController.navigate(R.id.nav_settings)
                     }
                 }
                 true
             }
+            // R.id.action_sign_out -> { // Bloque eliminado
+            //     authManager.signOut {
+            //         val intent = Intent(this, MainActivity::class.java)
+            //         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            //         startActivity(intent)
+            //         finish()
+            //     }
+            //     true
+            // }
             else -> super.onOptionsItemSelected(item)
         }
     }

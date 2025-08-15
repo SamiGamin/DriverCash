@@ -4,8 +4,11 @@ import androidx.lifecycle.LiveData
 import com.sami.DriverCash.Model.Local.Gasto
 import com.sami.DriverCash.Model.Local.GastoDao
 import com.sami.DriverCash.Model.Local.TipoGasto
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class GastoRepository(private val gastoDao: GastoDao) {
+class GastoRepository @Inject constructor(private val gastoDao: GastoDao) {
 
     suspend fun insert(gasto: Gasto): Long {
         return gastoDao.insert(gasto)
@@ -26,9 +29,26 @@ class GastoRepository(private val gastoDao: GastoDao) {
     fun getAllGastos(): LiveData<List<Gasto>> {
         return gastoDao.getAllGastos()
     }
+    suspend fun deleteAllGastos() { // El nombre debe coincidir con lo que llamas en AuthManager
+        gastoDao.deleteAll() // Llama al método que definiste en el DAO
+    }
+
 
     fun getGastosByVehiculoId(vehiculoId: Long): LiveData<List<Gasto>> {
+        // Este método devuelve LiveData, lo mantenemos por si se usa en otras partes.
         return gastoDao.getGastosByVehiculoId(vehiculoId)
+    }
+    
+    // Nueva función suspendida para obtener la lista de gastos por ID de vehículo
+    suspend fun getGastosListByVehiculoId(vehiculoId: Long): List<Gasto> {
+        // DEBERÁS ASEGURARTE de que tu GastoDao tenga un método como:
+        // suspend fun getGastosListForVehiculo(vehiculoId: Long): List<Gasto>
+        // O si es síncrona: 
+        // fun getGastosListForVehiculoSync(vehiculoId: Long): List<Gasto>
+        // y luego llamarías a withContext(Dispatchers.IO) { gastoDao.getGastosListForVehiculoSync(vehiculoId) }
+        // Por ahora, asumimos que existe una función suspendida en el DAO.
+        // IMPLEMENTA LA LLAMADA A TU DAO AQUÍ.
+        return gastoDao.getGastosListForVehiculo(vehiculoId) // Asumiendo que esta función existe en el DAO y es suspend
     }
 
     fun getGastosByVehiculoIdAndCategoria(vehiculoId: Long, categoria: TipoGasto): LiveData<List<Gasto>> {

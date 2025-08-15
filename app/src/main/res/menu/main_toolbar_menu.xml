@@ -6,7 +6,6 @@
         android:id="@+id/action_preferences"
         android:title="Preferencias"
         android:icon="@drawable/ic_settings"
-
         app:showAsAction="ifRoom" />
 
 </menu>

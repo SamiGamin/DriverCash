@@ -14,7 +14,7 @@ import androidx.room.TypeConverters
         KilometrajeRecorrido::class,
         Gasto::class
     ],
-    version = 3, // Versión incrementada a 3
+    version = 4, // Versión incrementada a 3
     exportSchema = false
 )
 @TypeConverters(Converters::class) // Añadido para los TypeConverters

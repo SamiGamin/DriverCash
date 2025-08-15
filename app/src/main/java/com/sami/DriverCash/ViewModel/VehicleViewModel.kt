@@ -11,7 +11,7 @@ import com.sami.DriverCash.Model.Local.AppDatabase
 import com.sami.DriverCash.Model.Local.Repository.VehicleRepository
 import com.sami.DriverCash.Model.Local.Vehicle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import jakarta.inject.Inject
+import javax.inject.Inject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -90,5 +90,9 @@ class VehicleViewModel @Inject constructor(
         return withContext(Dispatchers.IO) {
             repository.getVehicleById(id)
         }
+    }
+
+    suspend fun getAllVehiclesSuspend(): List<Vehicle> {
+        return repository.getAllSuspend()
     }
 }
